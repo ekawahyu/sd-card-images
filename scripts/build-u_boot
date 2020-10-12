@@ -8,7 +8,7 @@ TARBALL="${U_BOOT_TARBALL}"
 GIT_REV="${U_BOOT_GIT_REV}"
 GIT_URL="${U_BOOT_GIT_URL:-https://gitlab.denx.de/u-boot/u-boot.git}"
 
-set -e
+set -xe
 
 if [ ! -s "${TARBALL}" ]
 then

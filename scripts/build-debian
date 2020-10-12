@@ -5,7 +5,7 @@ OS="$1" # For example "debian"
 ARCH="$2" # For example "armhf"
 DIST="$3" # For example "buster"
 
-set -e
+set -xe
 
 case "${OS}-${ARCH}" in
 debian-armhf)
@@ -94,10 +94,10 @@ EOF
 	;;
 esac
 
-cp -rv --preserve=mode ../2nd-stage-files/pre-2nd-stage-files/* debian
-cp -rv --preserve=mode ../2nd-stage-files/pre-2nd-stage-files-${ARCH}/* debian
+cp -rv --preserve=mode ../../2nd-stage-files/pre-2nd-stage-files/* debian
+cp -rv --preserve=mode ../../2nd-stage-files/pre-2nd-stage-files-${ARCH}/* debian
 
-# Copy ARM emulation stuff
+# Copy ARM emulation stuff ???
 cp -v /usr/bin/qemu-*-static debian/usr/bin || :
 
 # Build a Debian root filesystem (second stage)
@@ -117,13 +117,14 @@ EOF
 # Remove ARM emulation stuff again
 rm -v debian/usr/bin/qemu-*-static || :
 
-cp -rv --preserve=mode ../2nd-stage-files/post-2nd-stage-files/* debian
+cp -rv --preserve=mode ../../2nd-stage-files/post-2nd-stage-files/* debian
 
 # Set hostname
 echo "${OS}" > debian/etc/hostname
 
 # List all files
-find debian ! -type d -printf "/%P\n" | sort > "/artifacts/${OS}-${DIST}-${ARCH}.files.txt"
+#find debian ! -type d -printf "/%P\n" | sort > "/artifacts/${OS}-${DIST}-${ARCH}.files.txt"
+find debian ! -type d -printf "/%P\n" | sort > "../${OS}-${DIST}-${ARCH}.files.txt"
 
 # Make a ext4 filesystem of this and put it into the image
 rm -f ext4.img
@@ -131,4 +132,5 @@ fallocate -l 1874MiB ext4.img
 mkfs.ext4 -d debian ext4.img
 gzip ext4.img
 
-cp -v ext4.img.gz "/artifacts/${OS}-${DIST}-${ARCH}-${PASSWORD}.bin.gz"
+#cp -v ext4.img.gz "/artifacts/${OS}-${DIST}-${ARCH}-${PASSWORD}.bin.gz"
+cp -v ext4.img.gz "../${OS}-${DIST}-${ARCH}-${PASSWORD}.bin.gz"

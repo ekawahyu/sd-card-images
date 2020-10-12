@@ -6,20 +6,20 @@ CHIP_ID="${2}" # For example "allwinner-a10"
 DEFCONFIG="${3}" # For example "Bananapi_defconfig"
 TUPLE="${4}" # For example "arm-linux-gnueabihf"
 
-set -e
+set -xe
 
 # Create fresh empty directory
 TMP=$(mktemp -d tmp.XXXXXX)
 cd "${TMP}"
 
-build-image tmp.img
+../build-image tmp.img
 
 case "${CHIP_ID}" in
 allwinner*)
     build-boot-sunxi "${BOARD_ID}" "${CHIP_ID}" "${DEFCONFIG}" "${TUPLE}"
     ;;
-bcm2836|bcm2837|bcm2711)
-    build-boot-rpi "${BOARD_ID}" "${CHIP_ID}" "${DEFCONFIG}" "${TUPLE}"
+bcm2835|bcm2836|bcm2837|bcm2711)
+    ../build-boot-rpi "${BOARD_ID}" "${CHIP_ID}" "${DEFCONFIG}" "${TUPLE}"
     ;;
 *)
     echo Unknown CHIP_ID
@@ -29,4 +29,5 @@ esac
 
 truncate -s 32M tmp.img
 gzip tmp.img
-cp tmp.img.gz "/artifacts/boot-${BOARD_ID}.bin.gz"
+#cp tmp.img.gz "/artifacts/boot-${BOARD_ID}.bin.gz"
+cp tmp.img.gz "../boot-${BOARD_ID}.bin.gz"

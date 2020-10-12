@@ -1,5 +1,7 @@
 Board ID,Board name,Board maker,Chip ID,U-Boot defconfig,Build tuple,Device tree
 
+raspberrypi_0w,Raspberry Pi 0 W,Raspberry Pi Foundation,bcm2835,rpi_0_w_defconfig,arm-linux-gnueabihf,bcm2835-rpi-zero-w
+
 raspberrypi_2b,Raspberry Pi 2 B,Raspberry Pi Foundation,bcm2836,rpi_2_defconfig,arm-linux-gnueabihf,bcm2836-rpi-2-b
 raspberrypi_3b,Raspberry Pi 3 B,Raspberry Pi Foundation,bcm2837,rpi_3_defconfig,aarch64-linux-gnu,bcm2837-rpi-3-b
 raspberrypi_3a_plus,Raspberry Pi 3 A+,Raspberry Pi Foundation,bcm2837,rpi_3_defconfig,aarch64-linux-gnu,bcm2837-rpi-3-a-plus
